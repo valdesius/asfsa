@@ -24,6 +24,6 @@ services:
     depends_on:
       - braincon_db
     environment:
-      SPRING_DATASOURSE_URL: 'jdbc:postgresql://braincon_db:5432/braincon_db'
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://braincon_db:5432/braincon_db'
       JAVA_OPTS: '-Xmx512m'
 
