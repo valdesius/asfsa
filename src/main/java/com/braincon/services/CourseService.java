@@ -1,7 +1,9 @@
 package com.braincon.services;
 
 import com.braincon.models.Course;
+import com.braincon.models.Test;
 import com.braincon.repository.CourseRepository;
+import com.braincon.repository.TestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ public class CourseService {
 
     @Autowired
     private CourseRepository courseRepository;
+    @Autowired
+    private TestRepository testRepository;
 
     public List<Course> getAllCourses(){
         return courseRepository.getAllCourses();
@@ -38,6 +42,11 @@ public class CourseService {
     public int updateFavoriteStatus(int course_id, int user_id, boolean isFavorite) {
         return courseRepository.updateFavoriteStatus(isFavorite, course_id, user_id);
     }
+
+    public List<Test> getAllTestsForCourse(int courseId) {
+        return testRepository.findByCourseId(courseId);
+    }
+
 
 
 }

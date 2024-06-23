@@ -5,6 +5,7 @@ import com.braincon.dto.responses.CourseCreatedResponse;
 import com.braincon.dto.responses.GetAllCoursesResponse;
 import com.braincon.helpers.ExtractUserIDFromTokenHelper;
 import com.braincon.models.Course;
+import com.braincon.models.Test;
 import com.braincon.services.CourseService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,17 +26,14 @@ public class CourseController {
     private ExtractUserIDFromTokenHelper extractUserIDFromTokenHelper;
 
     @GetMapping("/all")
-    public ResponseEntity getAllCourses() {
+    public ResponseEntity<List<Course>> getAllCourses() {
         List<Course> courseList = courseService.getAllCourses();
         if (courseList.isEmpty()) {
             return new ResponseEntity("Что-то пошло не так", HttpStatus.BAD_REQUEST);
         }
-
-        GetAllCoursesResponse getAllCoursesResponse = new GetAllCoursesResponse();
-        getAllCoursesResponse.setGetAllCourses(courseList);
-
-        return new ResponseEntity(courseList, HttpStatus.OK);
+        return new ResponseEntity<>(courseList, HttpStatus.OK);
     }
+
 
     @GetMapping("/my_courses")
     public ResponseEntity getMyCourses(HttpServletRequest request) {
@@ -140,6 +138,16 @@ public class CourseController {
             return new ResponseEntity("Unable to update favorite status", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity("Favorite status updated successfully", HttpStatus.OK);
+    }
+
+
+    @GetMapping("/{courseId}/tests")
+    public ResponseEntity<List<Test>> getTestsForCourse(@PathVariable int courseId) {
+        List<Test> tests = courseService.getAllTestsForCourse(courseId);
+        if (tests.isEmpty()) {
+            return new ResponseEntity("No tests found for this course", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity   <>(tests, HttpStatus.OK);
     }
 
 

@@ -22,8 +22,8 @@ public class TestService {
         return testRepository.getTestsByUserId(user_id);
     }
 
-    public int createTest(int user_id, String title, String body, String question, String answer) {
-        return testRepository.createTest(user_id, title, body, question, answer);
+    public int createTest(int user_id, String title, String body, String question, String answer, int course_id) {
+        return testRepository.createTest(user_id, title, body, question, answer, course_id);
     }
 
     public int updateTestIdByUserId(String title, String body, String question, int test_id, int user_id) {

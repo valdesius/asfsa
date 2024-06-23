@@ -31,7 +31,8 @@ public interface TestRepository extends CrudRepository<Test, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO tests(user_id, title,body, question, answer) VALUES(:user_id, :title, :body, :question, :answer)", nativeQuery = true)
-    int createTest(@Param("user_id") int user_id, @Param("title") String title, @Param("body") String body, @Param("question") String question, @Param("answer") String answer);
-
+    @Query(value = "INSERT INTO tests(user_id, title,body, question, answer, course_id) VALUES(:user_id, :title, :body, :question, :answer, :course_id)", nativeQuery = true)
+    int createTest(@Param("user_id") int user_id, @Param("title") String title, @Param("body") String body, @Param("question") String question, @Param("answer") String answer, @Param("course_id") int course_id);
+    @Query(value = "SELECT * FROM tests WHERE course_id = :course_id", nativeQuery = true)
+    List<Test> findByCourseId(@Param("course_id") int course_id);
 }

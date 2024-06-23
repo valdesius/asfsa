@@ -1,5 +1,6 @@
 package com.braincon.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,9 @@ public class Test {
 
     private String question;
     private String answer;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "course_id")
+    private Course course;
 
     public String getAnswer() {
         return answer;

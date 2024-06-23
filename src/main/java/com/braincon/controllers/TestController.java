@@ -25,7 +25,7 @@ public class TestController {
     private ExtractUserIDFromTokenHelper extractUserIDFromTokenHelper;
 
     @GetMapping("/all")
-    public ResponseEntity getAllTests() {
+    public ResponseEntity<List<Test>> getAllTests() {
         System.out.println("In Tests Controller All Method.");
         // TODO: FOR TESTING:
         List<Test> testList = service.getAllTests();
@@ -62,7 +62,9 @@ public class TestController {
     public ResponseEntity createTest(@RequestParam("title") String title,
                                      @RequestParam("body") String body,
                                      @RequestParam("question") String question,
-                                     @RequestParam("answer") String answer, HttpServletRequest request) {
+                                     @RequestParam("answer") String answer,
+                                     @RequestParam("course_id") String course_id,
+                                     HttpServletRequest request) {
         Integer user_id = extractUserIDFromTokenHelper.getUserIdFromToken(request);
 
 
@@ -72,7 +74,7 @@ public class TestController {
         }
 
 
-        int result = service.createTest(user_id, title, body, question, answer);
+        int result = service.createTest(user_id, title, body, question, answer, Integer.parseInt(course_id));
 
         if (result != 1) {
             // RETURN ERROR RESPONSE:
