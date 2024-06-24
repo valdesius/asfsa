@@ -4,6 +4,7 @@ import com.braincon.models.Course;
 import com.braincon.models.Test;
 import com.braincon.repository.CourseRepository;
 import com.braincon.repository.TestRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,8 +33,10 @@ public class CourseService {
         return courseRepository.updateCourseByCourseIdAndUserId(title, body, course_id, user_id);
     }
 
+    @Transactional
     public int deleteCourseByCourseIdAndUserId(int course_id, int user_id){
-        return courseRepository.deleteCourseByCourseIdAndUserId(course_id, user_id);
+        testRepository.deleteTestsByCourseId(course_id); // Удаление всех тестов связанных с курсом
+        return courseRepository.deleteCourseByCourseIdAndUserId(course_id, user_id); // Удаление курса
     }
     public List<Course> getFavoriteCoursesByUserId(int user_id) {
         return courseRepository.getFavoriteCoursesByUserId(user_id);

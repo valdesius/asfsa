@@ -28,6 +28,10 @@ public interface TestRepository extends CrudRepository<Test, Integer> {
     @Modifying
     @Query(value = "DELETE FROM tests WHERE test_id = :test_id ", nativeQuery = true)
     int deleteTestByTestIdAndUserId(@Param("test_id")int test_id);
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM tests WHERE course_id = :course_id", nativeQuery = true)
+    void deleteTestsByCourseId(@Param("course_id") int course_id);
 
     @Transactional
     @Modifying

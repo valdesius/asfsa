@@ -93,7 +93,6 @@ public class CourseController {
 
     @PostMapping("/delete")
     public ResponseEntity deleteCourseById(@RequestParam("course_id") String course_id, HttpServletRequest request) {
-
         Integer user_id = extractUserIDFromTokenHelper.getUserIdFromToken(request);
 
         if (user_id == null) {
@@ -107,9 +106,7 @@ public class CourseController {
             return new ResponseEntity("Что-то пошло не так", HttpStatus.BAD_REQUEST);
         }
 
-
         return new ResponseEntity("Курс удален", HttpStatus.OK);
-
     }
 
     @GetMapping("/favorites")

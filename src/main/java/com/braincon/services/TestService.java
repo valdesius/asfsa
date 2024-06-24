@@ -34,4 +34,8 @@ public class TestService {
         return testRepository.deleteTestByTestIdAndUserId(test_id);
     }
 
+    public void deleteTestByCourseId(int course_id) {
+        testRepository.deleteTestsByCourseId(course_id);
+    }
+
 }
